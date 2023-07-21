@@ -24,7 +24,7 @@ def create_app(test_config=None):
     
     # Import models here for Alembic setup
     # from app.models.ExampleModel import ExampleModel
-    from app.models.order import Order
+    from app.models.boba_order import Boba_Order
 
     db.init_app(app)
     migrate.init_app(app, db)

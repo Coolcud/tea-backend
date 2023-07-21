@@ -35,7 +35,7 @@ def get_all_orders():
 
 @orders_bp.route("", methods=["POST"])
 def create_order():
-    """Add new order to database"""
+    """Add new order to database."""
     request_body = request.get_json()
 
     new_order = Boba_Order.from_dict(request_body)
@@ -44,3 +44,14 @@ def create_order():
     db.session.commit()
 
     return {"order": new_order.to_dict()}, 201
+
+
+@orders_bp.route("/<order_id>", methods=["DELETE"])
+def delete_order(order_id):
+    """Delete order via order_id."""
+    order = validate_model_item(Boba_Order, order_id)
+
+    db.session.delete(order)
+    db.session.commit()
+
+    return jsonify({"message": f"Order #{order_id} has been successfully deleted!"}), 200

@@ -23,7 +23,7 @@ def validate_model_item(model, item_id):
 
 # --------------------------ORDER ROUTES--------------------------
 
-@orders_bp("", methods=["GET"])
+@orders_bp.route("", methods=["GET"])
 def get_all_orders():
     """Retrieve all orders from database."""
     all_orders = Order.query.all()
@@ -33,7 +33,7 @@ def get_all_orders():
     return jsonify(response), 200
 
 
-@orders_bp("", methods=["POST"])
+@orders_bp.route("", methods=["POST"])
 def create_order():
     """Add new order to database"""
     request_body = request.get_json()

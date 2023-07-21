@@ -23,16 +23,6 @@ def validate_model_item(model, item_id):
 
 # --------------------------ORDER ROUTES--------------------------
 
-@orders_bp.route("", methods=["GET"])
-def get_all_orders():
-    """Retrieve all orders from database."""
-    all_orders = Boba_Order.query.all()
-
-    response = [order.to_dict() for order in all_orders]
-
-    return jsonify(response), 200
-
-
 @orders_bp.route("", methods=["POST"])
 def create_order():
     """Add new order to database."""
@@ -44,6 +34,24 @@ def create_order():
     db.session.commit()
 
     return {"order": new_order.to_dict()}, 201
+
+
+@orders_bp.route("", methods=["GET"])
+def get_all_orders():
+    """Retrieve all orders from database."""
+    all_orders = Boba_Order.query.all()
+
+    response = [order.to_dict() for order in all_orders]
+
+    return jsonify(response), 200
+
+
+@orders_bp.route("/<order_id>", methods=["GET"])
+def get_one_order(order_id):
+    """Retrieve one order from database via order_id."""
+    order = validate_model_item(Boba_Order, order_id)
+
+    return {"order": order.to_dict()}, 200
 
 
 @orders_bp.route("/<order_id>", methods=["DELETE"])

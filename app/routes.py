@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response, abort
 from app import db
-from app.models.order import Order
+from app.models.boba_order import Boba_Order
 from dotenv import load_dotenv
 import os
 
@@ -26,7 +26,7 @@ def validate_model_item(model, item_id):
 @orders_bp.route("", methods=["GET"])
 def get_all_orders():
     """Retrieve all orders from database."""
-    all_orders = Order.query.all()
+    all_orders = Boba_Order.query.all()
 
     response = [order.to_dict() for order in all_orders]
 
@@ -38,7 +38,7 @@ def create_order():
     """Add new order to database"""
     request_body = request.get_json()
 
-    new_order = Order.from_dict(request_body)
+    new_order = Boba_Order.from_dict(request_body)
 
     db.session.add(new_order)
     db.session.commit()

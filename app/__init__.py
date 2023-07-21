@@ -32,6 +32,9 @@ def create_app(test_config=None):
     # Register Blueprints here
     # from .routes import example_bp
     # app.register_blueprint(example_bp)
+    from app.routes import orders_bp
+
+    app.register_blueprint(orders_bp)
 
     CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type'

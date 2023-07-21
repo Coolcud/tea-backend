@@ -8,3 +8,21 @@ class Order(db.Model):
     toppings = db.Column(ARRAY(db.String))
     temp = db.Column(db.String)
     sweetness = db.Column(db.Integer)
+
+    def to_dict(self):
+        return {
+            "order_id": self.order_id,
+            "base": self.base,
+            "toppings": self.toppings,
+            "temp": self.temp,
+            "sweetness": self.sweetness
+        }
+    
+    @classmethod
+    def from_dict(cls, order_data):
+        return cls(
+            base=order_data["base"],
+            toppings=order_data["toppings"],
+            temp=order_data["temp"],
+            sweetness=order_data["sweetness"]
+        )

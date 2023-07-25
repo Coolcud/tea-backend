@@ -7,7 +7,7 @@ class Boba_Order(db.Model):
     base = db.Column(db.String)
     toppings = db.Column(ARRAY(db.String))
     temp = db.Column(db.String)
-    sweetness = db.Column(db.Integer)
+    sweetness = db.Column(db.String)
 
     def to_dict(self):
         return {
